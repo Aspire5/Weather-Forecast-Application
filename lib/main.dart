@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:weather/singletons/global.dart';
 import 'package:get/get.dart';
-import 'package:weather/views/homeScreen/home.dart';
 import 'package:weather/views/splashScreen/splashScreen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
+  Global().homeScreenController.loadAllCountries();
   runApp(const MyApp());
 
-  Global().homeScreenController.loadAllCountries();
 }
 
 class MyApp extends StatelessWidget {

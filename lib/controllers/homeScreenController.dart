@@ -1,6 +1,7 @@
 
 import 'dart:developer';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,10 @@ class HomeScreenController extends GetxController{
 
   /// a list of forecasts of currently selected city, auto-populated when city is selected
   RxList<ForecastDay> forecastedDays = RxList();
+
+  /// initialize our openWeatherAPI object
+  WeatherService service = WeatherService(http.Client(),dotenv.env['API_KEY'] ?? 'API_KEY not found');
+
 
 
   void loadAllCountries()async{
@@ -169,8 +174,8 @@ class HomeScreenController extends GetxController{
       );
     }
 
-    Map? data = await WeatherService.fetchWeather(lat, lon);
-    Map? forecastData = await WeatherService.fetchAdvanceWeather(lat, lon, 7);
+    Map? data = await service.fetchCurrentWeather(lat, lon);
+    Map? forecastData = await service.fetchWeatherForecast(lat, lon);
     log("DATA = $data");
     // log("forecast DATA = $forecastData");
 
