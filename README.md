@@ -29,7 +29,7 @@ All artistic material has been picked up from various online sources, available 
 
 ## Unit Tests
 
-- Unit testing of both API calls using Mocktail plugin
+- Unit testing of OpenWeatherAPI calls using Mocktail plugin
 
 
 
