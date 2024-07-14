@@ -1,16 +1,16 @@
-# weather
+# Weather Forecast Application
 
-A new Flutter project.
+A new Flutter project that allows users to select a country-city pair and get its current weather data as well as 
+forecast of up to 5 days!
 
-## Getting Started
+## GIF and Image Credits
 
-This project is a starting point for a Flutter application.
+I do not own any GIF's and Images used in this project.
+All artistic material have been picked up from various online sources available for free.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Selection of countries 
+- - Users can select
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
