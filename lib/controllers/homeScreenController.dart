@@ -93,11 +93,6 @@ class HomeScreenController extends GetxController{
     getWeatherOf(context, lat, long, fromCityScreen);
   }
 
-  // void loadCityWeather(){
-  //   Get.to(() => const CityWeatherScreen());
-  // }
-
-
   Color getWeatherColor(WeatherType weather){
     switch(weather){
       case WeatherType.sunny:
@@ -158,6 +153,7 @@ class HomeScreenController extends GetxController{
 
   void getWeatherOf(BuildContext context, double lat, double lon, bool fromCityScreen) async{
 
+    /// we need to clear data of previously selected city, otherwise new data will append after previous data
     forecastedDays.clear();
 
     if(fromCityScreen == false){
@@ -177,8 +173,8 @@ class HomeScreenController extends GetxController{
 
     Map? data = await service.fetchCurrentWeather(lat, lon);
     Map? forecastData = await service.fetchWeatherForecast(lat, lon);
-    log("DATA = $data");
-    log("forecast DATA = $forecastData");
+    // log("DATA = $data");
+    // log("forecast DATA = $forecastData");
 
 
     /// unloading forecasted weather data into a list of ForecastDay objects

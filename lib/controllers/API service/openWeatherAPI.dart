@@ -13,8 +13,6 @@ class WeatherService {
   Future<Map<String, dynamic>?> fetchCurrentWeather(double lat, double lon) async {
     final String url = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&exclude=minutely,hourly,daily,alerts&appid=$apiKey';
 
-    print("lat and lon at fetch current weather = $lat and $lon");
-
     final response = await client.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -27,8 +25,6 @@ class WeatherService {
 
   Future<Map<String, dynamic>?> fetchWeatherForecast(double lat, double lon) async {
     final String url = 'https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$apiKey';
-
-    print("lat and lon at fetch forecast weather = $lat and $lon");
 
     final response = await client.get(Uri.parse(url));
 
