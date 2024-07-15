@@ -1,7 +1,7 @@
 # Weather Forecast Application
 
 A Flutter project that allows users to select a country-city pair and get their current weather data as well as 
-forecast of up to 5 days!
+forecast of up to 5 days! (7 days required paid subscription)
 
 ## GIF and Image Credits
 
