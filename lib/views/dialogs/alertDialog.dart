@@ -37,6 +37,7 @@ class CustomAlertDialog extends StatelessWidget {
 
             Text(
               description,
+              maxLines: 2,
               style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,

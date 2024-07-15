@@ -51,10 +51,18 @@ class CityWeatherScreen extends StatelessWidget{
                   ),
                   Text(
                     Global().homeScreenController.selectedWeather.value.name.toUpperCase(),
-                    style: const TextStyle(
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Global().homeScreenController.getTextColor(Global().homeScreenController.selectedWeather.value),
+                      fontSize: 25
+                    ),
+                  ),
+                  Text(
+                    Global().homeScreenController.cityWeather.value!.weatherDescription,
+                    style: TextStyle(
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blueGrey,
-                        fontSize: 25
+                        color: Global().homeScreenController.getTextColor(Global().homeScreenController.selectedWeather.value)
                     ),
                   ),
                   Flexible(

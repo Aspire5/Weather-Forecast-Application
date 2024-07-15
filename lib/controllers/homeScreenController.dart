@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -146,9 +148,25 @@ class HomeScreenController extends GetxController{
 
   void getWeatherOf(BuildContext context, double lat, double lon, bool fromCityScreen) async{
 
-    /// we need to clear data of previously selected city, otherwise new data will append after previous data
-    forecastedDays.clear();
+    /// checking for internet connectivity
+    if(! await hasNetwork()){
+      debugPrint('No Internet Access!');
+      return showDialog(
+          context: context,
+          builder: (context){
+            return CustomAlertDialog(
+              title: 'No Internet Access!',
+              description: "Please check your internet and try again!",
+              onPressed: (){
+                Navigator.pop(context);
+              },
+            );
+          }
+      );
+    }
 
+
+    /// progress indicator while api's are being called
     if(fromCityScreen == false){
       showDialog(
         context: context,
@@ -173,28 +191,12 @@ class HomeScreenController extends GetxController{
 
     /// unloading forecasted weather data into a list of ForecastDay objects
     if(forecastData != null){
-      for(Map<String,dynamic> day in forecastData['list']){
-        forecastedDays.add(
-          ForecastDay(
-            date: getDateFromUnix(day['dt']),
-            time: getTimeFromUnix(day['dt']),
-            tempInCelsius: kelvinToCelsius(day['main']['temp'].toDouble()).toStringAsFixed(1),
-            tempInFahrenheit: kelvinToFahrenheit(day['main']['temp'].toDouble()).toStringAsFixed(1),
-            weatherType: getWeatherType(day['weather'][0]['main'] ?? '',getHourFromUnix(day['dt']))
-          )
-        );
-      }
+      forecastedDays.value = unloadForecastResponse(forecastData);
     }
 
     if(data != null) {
       selectedWeather.value = getWeatherType(data['weather'][0]['main'] ?? '', DateTime.now().hour);
-      cityWeather.value = CityWeather(
-          mainTitle: data['weather'][0]['main'],
-          weatherDescription: data['weather'][0]['description'],
-          weatherType: selectedWeather.value,
-          tempInCelsius: kelvinToCelsius(data['main']['temp']),
-          tempInFahrenheit: kelvinToFahrenheit(data['main']['temp'])
-      );
+      cityWeather.value = unloadCurrentWeatherResponse(data);
 
       if(fromCityScreen == false){
         /// to pop circular progress indicator
@@ -206,7 +208,7 @@ class HomeScreenController extends GetxController{
         context: context,
         builder: (context){
           return CustomAlertDialog(
-            description: "Some error occurred!\nPlease try again later...",
+            description: "Some error occurred!\n Please try again later..",
             onPressed: (){
               selectedCity.value = null;
               Navigator.pop(context);
@@ -222,6 +224,33 @@ class HomeScreenController extends GetxController{
       );
     }
   }
+
+  List<ForecastDay> unloadForecastResponse(Map forecastData){
+    List<ForecastDay> data = [];
+    for(Map<String,dynamic> day in forecastData['list']){
+      data.add(
+          ForecastDay(
+              date: getDateFromUnix(day['dt']),
+              time: getTimeFromUnix(day['dt']),
+              tempInCelsius: kelvinToCelsius(day['main']['temp'].toDouble()).toStringAsFixed(1),
+              tempInFahrenheit: kelvinToFahrenheit(day['main']['temp'].toDouble()).toStringAsFixed(1),
+              weatherType: getWeatherType(day['weather'][0]['main'] ?? '',getHourFromUnix(day['dt']))
+          )
+      );
+    }
+    return data;
+  }
+
+  CityWeather unloadCurrentWeatherResponse(Map data){
+    return CityWeather(
+        mainTitle: data['weather'][0]['main'],
+        weatherDescription: data['weather'][0]['description'],
+        weatherType: selectedWeather.value,
+        tempInCelsius: kelvinToCelsius(data['main']['temp']),
+        tempInFahrenheit: kelvinToFahrenheit(data['main']['temp'])
+    );
+  }
+
 
   WeatherType getWeatherType(String weather, int hours){
     switch(weather){
@@ -284,6 +313,15 @@ class HomeScreenController extends GetxController{
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
     return int.parse(DateFormat('HH').format(dateTime));
+  }
+
+  Future<bool> hasNetwork() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } on SocketException catch (_) {
+      return false;
+    }
   }
 
 }
