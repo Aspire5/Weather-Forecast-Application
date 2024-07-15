@@ -1,9 +1,8 @@
 
 import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:country_state_city/country_state_city.dart';
@@ -44,7 +43,7 @@ class HomeScreenController extends GetxController{
   RxList<ForecastDay> forecastedDays = RxList();
 
   /// initialize our openWeatherAPI object
-  WeatherService service = WeatherService(http.Client(),dotenv.env['API_KEY'] ?? 'API_KEY not found');
+  WeatherService service = WeatherService(Client(),dotenv.env['API_KEY'] ?? 'API_KEY not found');
 
 
 
@@ -159,6 +158,8 @@ class HomeScreenController extends GetxController{
 
   void getWeatherOf(BuildContext context, double lat, double lon, bool fromCityScreen) async{
 
+    forecastedDays.clear();
+
     if(fromCityScreen == false){
       showDialog(
         context: context,
@@ -177,8 +178,10 @@ class HomeScreenController extends GetxController{
     Map? data = await service.fetchCurrentWeather(lat, lon);
     Map? forecastData = await service.fetchWeatherForecast(lat, lon);
     log("DATA = $data");
-    // log("forecast DATA = $forecastData");
+    log("forecast DATA = $forecastData");
 
+
+    /// unloading forecasted weather data into a list of ForecastDay objects
     if(forecastData != null){
       for(Map<String,dynamic> day in forecastData['list']){
         forecastedDays.add(
