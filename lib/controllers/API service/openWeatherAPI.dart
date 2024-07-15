@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:get/get.dart';
 
 class WeatherService {
 
@@ -19,7 +18,7 @@ class WeatherService {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      log('Failed to load weather data : ${json.decode(response.body)}');
+      debugPrint('Failed to load weather data : ${json.decode(response.body)}');
       return null;
     }
   }
@@ -32,7 +31,7 @@ class WeatherService {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      log('Failed to load weather data : ${json.decode(response.body)}');
+      debugPrint('Failed to load weather data : ${json.decode(response.body)}');
       return null;
     }
   }

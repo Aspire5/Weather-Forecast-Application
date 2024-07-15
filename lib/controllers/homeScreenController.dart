@@ -166,8 +166,9 @@ class HomeScreenController extends GetxController{
 
     Map? data = await service.fetchCurrentWeather(lat, lon);
     Map? forecastData = await service.fetchWeatherForecast(lat, lon);
-    // log("DATA = $data");
-    // log("forecast DATA = $forecastData");
+
+    debugPrint("DATA = $data");
+    debugPrint("forecast DATA = $forecastData");
 
 
     /// unloading forecasted weather data into a list of ForecastDay objects
