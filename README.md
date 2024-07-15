@@ -3,6 +3,8 @@
 A Flutter project that allows users to select a country-city pair and get their current weather data as well as 
 forecast of up to 5 days! (7 days required paid subscription)
 
+The project structure follows the principles of MVC Architecture.
+
 ## GIF and Image Credits
 
 I do not own any GIF's and Images used in this project.
@@ -34,5 +36,10 @@ All artistic material has been picked up from various online sources, available 
 
 - Unit tests of OpenWeatherAPI calls using Mocktail plugin can be found in openWeatherAPI_test.dart
 - Unit tests of state-management logic using getx can be found in homeScreenController_test.dart
+- Unit test for loading of .env file which contains API_KEY secret of OpenWeatherAPI. (I have removed .env from gitignore for your ease)
 
+### Caching of weather data
 
+(WIP) - Will provide user an option (most probably a button) to allow them to store weather forecast data of the cities they want.
+It will be implemented using HIVE no-sql database as the weather data can get too big to be stored in Shared preferences.
+Will Start working on it tomorrow after my working hours.
