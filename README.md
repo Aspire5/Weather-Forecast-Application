@@ -21,7 +21,8 @@ All artistic material has been picked up from various online sources, available 
 
 ## How to run and use
 
-- you can simply build an apk using - 'flutter build apk' and install it in your android device to run the app.
+- Clone this repo, open it in either VS Code or Android Studio. (Expecting that you have Flutter & Dart plugins installed already, if not you can easily find a tutorial to do that online)
+- open terminal in your VS Code or Android Studio and simply build an apk using - 'flutter build apk' and install it in your android device to run the app.
 
 - Application is extremely easy to use. After the splash screen ends, the Home screen will appear.
 - Home screen provides user with two dropdowns, the one auto-populated with 'India' by default is to select and change the country
