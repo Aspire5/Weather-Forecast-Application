@@ -34,6 +34,5 @@ All artistic material has been picked up from various online sources, available 
 
 - Unit tests of OpenWeatherAPI calls using Mocktail plugin can be found in openWeatherAPI_test.dart
 - Unit tests of state-management logic using getx can be found in homeScreenController_test.dart
-  (Units Tests WIP - I'll add more unit tests for state management logic)
 
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart';
+import 'package:get/get.dart';
 
 class WeatherService {
 
@@ -9,8 +10,8 @@ class WeatherService {
 
   WeatherService(this.client, this.apiKey);
 
-
   Future<Map<String, dynamic>?> fetchCurrentWeather(double lat, double lon) async {
+
     final String url = 'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&exclude=minutely,hourly,daily,alerts&appid=$apiKey';
 
     final response = await client.get(Uri.parse(url));

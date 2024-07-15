@@ -1,5 +1,4 @@
 
-import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -53,12 +52,6 @@ class HomeScreenController extends GetxController{
     await Future.delayed(const Duration(seconds: 2));
     Get.to(() => const HomeScreen());
   }
-
-  Future<Country?> getCountry(String code) async{
-    return await getCountryFromCode(code);
-  }
-
-
 
   void changeSelectedCountry(BuildContext context, String country) async{
     selectedCity.value = null;
